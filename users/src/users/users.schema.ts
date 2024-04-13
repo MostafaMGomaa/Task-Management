@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { isEmail } from 'class-validator';
 
-enum UserRoles {
+export enum UserRoles {
   User = 'user',
   Admin = 'admin',
 }
