@@ -1,6 +1,6 @@
 # Task Mangemnet
 
-Microservices Task mangement web app
+Task mangement web app
 
 ## Schema:
 
