@@ -1,6 +1,6 @@
 # Task Mangemnet
 
-Microservices Task mangement web app
+Task mangement web app
 
 ## Schema:
 
@@ -28,7 +28,7 @@ Microservices Task mangement web app
 | Steps           | String [] |
 | Priority        | String    |
 | Author          | User      |
-| AssignTo        | User[]    |
+| AssignTo        | User []   |
 | StartDate       | Date      |
 | EndDate         | Date      |
 | ExpectedEndDate | Date      |
