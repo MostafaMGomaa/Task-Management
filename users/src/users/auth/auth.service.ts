@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 
@@ -7,6 +7,8 @@ import { CreateUserDto } from '../dto';
 import { UserRoles } from '../users.schema';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtDto } from '../dto/jwt.dto';
+import { LoginDto } from '../dto/login.dto';
+import { use } from 'passport';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +18,8 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
+  // TODO: Upload images.
   async signup(data: CreateUserDto) {
-    console.log(data.password.length);
     const hashedPassword = await bcrypt.hash(
       data.password,
       parseInt(this.config.get<string>('SALT_ROUND')),
@@ -47,8 +49,32 @@ export class AuthService {
     };
   }
 
+  async login(data: LoginDto) {
+    const user = await this.usersService.findOne(data.email);
+    if (!user) {
+      throw new ForbiddenException('Invalid email or password');
+    }
+
+    const pwMatch = bcrypt.compareSync(data.password, user.password);
+
+    if (!pwMatch) {
+      throw new ForbiddenException('Invalid email or password');
+    }
+    const token = await this.genrateToken({
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    });
+
+    return { name: user.name, token };
+  }
+
   async genrateToken(data: JwtDto): Promise<string> {
-    const payload = { id: data.id, email: data.email, role: data.role };
+    const payload = {
+      id: data.id,
+      email: data.email,
+      role: data.role,
+    };
 
     return await this.jwt.signAsync(payload, {
       expiresIn: '8h',

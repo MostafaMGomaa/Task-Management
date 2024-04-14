@@ -12,8 +12,10 @@ export class UsersService {
     return await this.userModel.find();
   }
 
-  async findOne(id: string) {
-    return await this.userModel.findOne({ id });
+  async findOne(email: string) {
+    return await this.userModel
+      .findOne({ email })
+      .select('_id name email photo password');
   }
 
   async create(data: CreateUserDto) {
