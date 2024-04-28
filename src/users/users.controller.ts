@@ -7,7 +7,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto, UserDto } from './dto';
+import { CreateUserDto } from './dto';
 import { AuthService } from './auth/auth.service';
 import { UsersService } from './users.service';
 import { LoginDto } from './dto/login.dto';
@@ -39,6 +39,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Request() req) {
+    console.log(req.user);
     return this.userService.findOne(req.user.email);
   }
 }
