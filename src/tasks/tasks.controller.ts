@@ -3,16 +3,20 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
   Req,
   Request,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
+import { AuthorCheckInterceptor } from './interceptors';
 
 @Controller('tasks')
 export class TasksController {
@@ -29,7 +33,9 @@ export class TasksController {
   }
 
   @Post()
-  createTask(@Body() task: CreateTaskDto) {
+  @UseGuards(JwtAuthGuard)
+  createTask(@Body() task: CreateTaskDto, @Req() req) {
+    task.author = req.user.id;
     return this.tasksService.create(task);
   }
 
@@ -39,13 +45,21 @@ export class TasksController {
   }
 
   @Delete('/:id')
+  @HttpCode(204)
   deleteTask(@Param('id') id: string) {
     return this.tasksService.delete(id);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('tasks/:id/users')
-  getUsers(@Req() req) {
+  @Get('/:id/users')
+  getTaskByUserId(@Req() req) {
     return this.tasksService.getTaskByUserId(req.user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(AuthorCheckInterceptor)
+  @Post('/:taskId')
+  assignTaskToUser(@Req() req) {
+    return this.tasksService.assignTaskToUser(req.params.taskId, req.user.id);
   }
 }

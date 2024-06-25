@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import { TaskPrioirty, TaskStatus } from '../tasks.schema';
+import { TaskPriority, TaskStatus } from '../tasks.schema';
 import {
   IsArray,
   IsDate,
   IsEnum,
+  IsMongoId,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -24,11 +24,11 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsArray()
-  steps: string[];
+  steps?: string[];
 
   @IsOptional()
-  @IsEnum(TaskPrioirty)
-  priority?: TaskPrioirty;
+  @IsEnum(TaskPriority)
+  priority?: TaskPriority;
 
   @IsOptional()
   @IsString()
@@ -41,4 +41,6 @@ export class CreateTaskDto {
   @IsOptional()
   @IsDate()
   expectedEndDate?: Date;
+
+  author: string;
 }

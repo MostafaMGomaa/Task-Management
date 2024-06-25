@@ -1,12 +1,13 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
-import monggoose, { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 
-export enum TaskPrioirty {
+export enum TaskPriority {
   LOW = 'LOW',
   MEDIUM = 'MEDIUM',
   HIGH = 'HIGH',
   CRITICAL = 'CRITICAL',
 }
+
 export enum TaskStatus {
   OPEN = 'OPEN',
   IN_PROGRESS = 'IN_PROGRESS',
@@ -15,6 +16,7 @@ export enum TaskStatus {
 
 export type TaskDocument = HydratedDocument<Task>;
 
+@Schema()
 export class Task {
   @Prop({ required: true })
   name: string;
@@ -22,20 +24,20 @@ export class Task {
   @Prop()
   description: string;
 
-  @Prop({ default: TaskStatus.OPEN })
-  status: string;
+  @Prop({ type: String, enum: TaskStatus, default: TaskStatus.OPEN })
+  status: TaskStatus;
 
   @Prop()
   steps: string[];
 
-  @Prop({ default: TaskPrioirty.MEDIUM })
-  priority: TaskPrioirty;
+  @Prop({ type: String, enum: TaskPriority, default: TaskPriority.MEDIUM })
+  priority: TaskPriority;
 
-  @Prop({ required: true })
-  author: monggoose.Schema.Types.ObjectId;
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  author: mongoose.Schema.Types.ObjectId;
 
-  @Prop()
-  assignTo: monggoose.Schema.Types.ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  assignTo: mongoose.Schema.Types.ObjectId[];
 
   @Prop()
   startDate: Date;
@@ -46,7 +48,7 @@ export class Task {
   @Prop()
   expectedEndDate: Date;
 
-  @Prop()
+  @Prop({ default: false })
   isOverdue: boolean;
 }
 

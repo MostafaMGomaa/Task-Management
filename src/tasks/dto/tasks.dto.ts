@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TaskPrioirty, TaskStatus } from '../tasks.schema';
+import { TaskPriority, TaskStatus } from '../tasks.schema';
 
 export class TaskDto {
   id: mongoose.Types.ObjectId;
@@ -12,7 +12,7 @@ export class TaskDto {
 
   steps: string[];
 
-  priority: TaskPrioirty;
+  priority: TaskPriority;
 
   author: mongoose.Types.ObjectId;
 

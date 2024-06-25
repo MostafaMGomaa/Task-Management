@@ -1,4 +1,4 @@
-import { TaskPrioirty, TaskStatus } from '../tasks.schema';
+import { TaskPriority, TaskStatus } from '../tasks.schema';
 import { IsArray, IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
 
 export class UpdateTaskDto {
@@ -19,8 +19,8 @@ export class UpdateTaskDto {
   steps: string[];
 
   @IsOptional()
-  @IsEnum(TaskPrioirty)
-  priority?: TaskPrioirty;
+  @IsEnum(TaskPriority)
+  priority?: TaskPriority;
 
   @IsOptional()
   @IsString()
