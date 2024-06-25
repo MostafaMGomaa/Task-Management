@@ -51,8 +51,6 @@ export class TasksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRoles.User)
   getTasks(@Req() req) {
-    console.log('Request User:', req.user); // Debug log
-
     return this.tasksService.findAll();
   }
 

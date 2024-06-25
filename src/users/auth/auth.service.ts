@@ -75,8 +75,6 @@ export class AuthService {
       role: data.role,
     };
 
-    console.log(payload);
-
     return await this.jwt.signAsync(payload, {
       expiresIn: '8h',
       secret: this.config.get<string>('JWT_SECRET'),
