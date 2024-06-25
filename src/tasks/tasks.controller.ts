@@ -16,8 +16,12 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
 import { AuthorCheckInterceptor } from './interceptors';
+import { Roles } from 'src/decorators';
+import { UserRoles } from 'src/users/users.schema';
+import { RolesGuard } from 'src/guards';
 
 @Controller('tasks')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
@@ -45,17 +49,24 @@ export class TasksController {
   }
 
   @Get()
-  getTasks() {
+  // @UseGuards(JwtAuthGuard)
+  @Roles(UserRoles.Admin)
+  getTasks(@Req() req) {
+    console.log('Request User:', req.user); // Debug log
+
     return this.tasksService.findAll();
   }
 
   @Get('/:id')
+  @UseGuards(JwtAuthGuard)
+  @Roles(UserRoles.Admin)
   getTask(@Param('id') id: string) {
     return this.tasksService.findOne(id);
   }
 
   @Post()
   @UseGuards(JwtAuthGuard)
+  @Roles(UserRoles.Admin)
   createTask(@Body() task: CreateTaskDto, @Req() req) {
     task.author = req.user.id;
     return this.tasksService.create(task);

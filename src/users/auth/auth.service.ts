@@ -56,7 +56,6 @@ export class AuthService {
     }
 
     const pwMatch = bcrypt.compareSync(data.password, user.password);
-
     if (!pwMatch) {
       throw new ForbiddenException('Invalid email or password');
     }
@@ -75,6 +74,8 @@ export class AuthService {
       email: data.email,
       role: data.role,
     };
+
+    console.log(payload);
 
     return await this.jwt.signAsync(payload, {
       expiresIn: '8h',

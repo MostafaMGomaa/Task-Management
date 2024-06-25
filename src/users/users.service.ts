@@ -15,7 +15,7 @@ export class UsersService {
   async findOne(email: string) {
     return await this.userModel
       .findOne({ email })
-      .select('_id name email photo password');
+      .select('_id name email photo password role');
   }
 
   async create(data: CreateUserDto) {
