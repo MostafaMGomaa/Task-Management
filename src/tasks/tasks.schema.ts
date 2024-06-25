@@ -16,7 +16,9 @@ export enum TaskStatus {
 
 export type TaskDocument = HydratedDocument<Task>;
 
-@Schema()
+@Schema({
+  timestamps: true,
+})
 export class Task {
   @Prop({ required: true })
   name: string;

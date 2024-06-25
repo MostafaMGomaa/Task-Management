@@ -34,12 +34,13 @@ export class TasksService {
   }
 
   async getTaskByUserId(userId: string): Promise<Task[]> {
-    return this.taskModel.find({ author: userId }).exec();
-  }
-
-  // Get the tasks which user assigned to is array of _ids of users
-  async getAssignedTasks(userId: string): Promise<Task[]> {
-    return this.taskModel.find({ assignTo: { $in: [userId] } }).exec();
+    return this.taskModel
+      .find({ author: userId })
+      .populate({
+        path: 'author',
+        select: 'name email photo role',
+      })
+      .exec();
   }
 
   async assignTaskToUser(tasksId: string, userId: string): Promise<Task> {
@@ -59,5 +60,16 @@ export class TasksService {
         runValidators: true,
       },
     );
+  }
+
+  // Get the tasks which user assigned to is array of _ids of users
+  async getAssignedTasks(userId: string): Promise<Task[]> {
+    return this.taskModel
+      .find({ assignTo: { $in: [userId] } })
+      .populate({
+        path: 'author',
+        select: 'name email photo',
+      })
+      .exec();
   }
 }
