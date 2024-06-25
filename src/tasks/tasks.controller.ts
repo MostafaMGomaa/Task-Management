@@ -21,7 +21,6 @@ import { UserRoles } from 'src/users/users.schema';
 import { RolesGuard } from 'src/guards';
 
 @Controller('tasks')
-@UseGuards(JwtAuthGuard, RolesGuard)
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
@@ -49,8 +48,8 @@ export class TasksController {
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
-  @Roles(UserRoles.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.User)
   getTasks(@Req() req) {
     console.log('Request User:', req.user); // Debug log
 
@@ -58,7 +57,7 @@ export class TasksController {
   }
 
   @Get('/:id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRoles.Admin)
   getTask(@Param('id') id: string) {
     return this.tasksService.findOne(id);
@@ -66,19 +65,22 @@ export class TasksController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  @Roles(UserRoles.Admin)
   createTask(@Body() task: CreateTaskDto, @Req() req) {
     task.author = req.user.id;
     return this.tasksService.create(task);
   }
 
   @Patch('/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.Admin)
   updateTask(@Param('id') id: string, @Body() task: UpdateTaskDto) {
     return this.tasksService.update(id, task);
   }
 
   @Delete('/:id')
   @HttpCode(204)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.Admin)
   deleteTask(@Param('id') id: string) {
     return this.tasksService.delete(id);
   }
