@@ -19,7 +19,7 @@ import { CreateUserDto } from './dto';
 import { AuthService } from './auth/auth.service';
 import { UsersService } from './users.service';
 import { LoginDto } from './dto/login.dto';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/guards';
 
 const storage = diskStorage({
   destination: 'uploads',

@@ -14,7 +14,7 @@ import {
 
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
-import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/guards';
 import { AuthorCheckInterceptor } from './interceptors';
 import { Roles } from 'src/decorators';
 import { RolesGuard } from 'src/guards';

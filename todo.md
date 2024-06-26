@@ -4,7 +4,7 @@
 [ T ] Get tasks by user
 [ T ] Authz
 [ T ] Upload Images
-[ ] Refactor: - Create types folder to include all enums and types - All guards should be in same folder
+[ T ] Refactor: - Create types folder to include all enums and types - All guards should be in same folder
 [ ] Handling mongodb error
 [ ] Unit Test
 [ ] Integration Test
