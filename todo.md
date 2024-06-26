@@ -5,7 +5,7 @@
 [ T ] Authz
 [ T ] Upload Images
 [ T ] Refactor: - Create types folder to include all enums and types - All guards should be in same folder
-[ ] Handling mongodb error - Make it dynamic
+[ T ] Handling mongodb error - Make it dynamic
 
 [ ] Logger
 [ ] Unit Test
