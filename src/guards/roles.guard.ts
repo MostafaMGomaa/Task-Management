@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from 'src/decorators';
-import { UserRoles } from 'src/users/users.schema';
+import { UserRoles } from 'src/enums';
 
 /**
  * `RolesGuard` class which will compare the roles assigned to the current user to the actual roles required by the current route being processed.

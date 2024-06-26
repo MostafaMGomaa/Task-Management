@@ -7,10 +7,10 @@ import {
   Min,
   MinLength,
 } from 'class-validator';
-import { UserRoles } from '../users.schema';
+import { UserRoles } from 'src/enums';
 
 export class CreateUserDto {
-  // @IsNotEmpty()
+  @IsNotEmpty()
   @IsString()
   name: string;
 

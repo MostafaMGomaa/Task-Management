@@ -1,13 +1,12 @@
-import { TaskPriority, TaskStatus } from '../tasks.schema';
 import {
   IsArray,
   IsDate,
   IsEnum,
-  IsMongoId,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
+import { TaskStatus, TaskPriority } from 'src/enums';
 
 export class CreateTaskDto {
   @IsNotEmpty()

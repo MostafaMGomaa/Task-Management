@@ -17,8 +17,8 @@ import { CreateTaskDto, UpdateTaskDto } from './dto';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
 import { AuthorCheckInterceptor } from './interceptors';
 import { Roles } from 'src/decorators';
-import { UserRoles } from 'src/users/users.schema';
 import { RolesGuard } from 'src/guards';
+import { UserRoles } from 'src/enums';
 
 @Controller('tasks')
 export class TasksController {

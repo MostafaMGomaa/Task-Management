@@ -4,11 +4,10 @@ import * as bcrypt from 'bcryptjs';
 
 import { UsersService } from '../users.service';
 import { CreateUserDto } from '../dto';
-import { UserRoles } from '../users.schema';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { JwtDto } from '../dto/jwt.dto';
 import { LoginDto } from '../dto/login.dto';
-import { use } from 'passport';
+import { UserRoles } from 'src/enums';
 
 @Injectable()
 export class AuthService {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TaskPriority, TaskStatus } from '../tasks.schema';
+import { TaskPriority, TaskStatus } from 'src/enums';
 
 export class TaskDto {
   id: mongoose.Types.ObjectId;

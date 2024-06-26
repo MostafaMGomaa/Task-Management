@@ -1,5 +1,5 @@
-import { TaskPriority, TaskStatus } from '../tasks.schema';
 import { IsArray, IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
+import { TaskPriority, TaskStatus } from 'src/enums';
 
 export class UpdateTaskDto {
   @IsOptional()

@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { UserRoles } from '../users.schema';
+import { UserRoles } from 'src/enums';
 
 export interface JwtDto {
   id: Types.ObjectId;
