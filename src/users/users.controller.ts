@@ -10,29 +10,14 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-
 import { Express } from 'express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 
 import { CreateUserDto } from './dto';
 import { AuthService } from './auth/auth.service';
 import { UsersService } from './users.service';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from 'src/guards';
-
-const storage = diskStorage({
-  destination: 'uploads',
-  filename: (req, file, cb) => {
-    const name = file.originalname.split('.')[0];
-    const extension = extname(file.originalname);
-    const randomName = Array(32)
-      .fill(null)
-      .map(() => Math.round(Math.random() * 16).toString(16))
-      .join('');
-    cb(null, `${name}-${randomName}${extension}`);
-  },
-});
+import { storage } from 'src/utils';
 
 @Controller('users')
 export class UsersController {
