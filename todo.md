@@ -5,19 +5,23 @@
 [ T ] Authz
 [ T ] Upload Images
 [ T ] Refactor: - Create types folder to include all enums and types - All guards should be in same folder
-[ ] Handling mongodb error
+[ ] Handling mongodb error - Make it dynamic
+
+[ ] Logger
 [ ] Unit Test
 [ ] Integration Test
-[ ] Montoring
-[ ] Logger
+[ ] Swagger API Doc
+
+[ ]
 
 // V2
-[] get overdue tasks
-[] get tasks by date
-[] get tasks by status
-[] get tasks by priority
-[] get tasks by due date range
-[] pagination
+[ ] get overdue tasks
+[ ] get tasks by date
+[ ] get tasks by status
+[ ] get tasks by priority
+[ ] get tasks by due date range
+[ ] pagination
+[ ] Montoring
 
 # Search
 

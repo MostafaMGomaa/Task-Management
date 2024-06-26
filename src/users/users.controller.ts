@@ -8,6 +8,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  UseFilters,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
@@ -20,8 +21,10 @@ import { JwtAuthGuard, RolesGuard } from 'src/guards';
 import { storage } from 'src/utils';
 import { Roles } from 'src/decorators';
 import { UserRoles } from 'src/enums';
+import { MongoExceptionFilter } from 'src/filters';
 
 @Controller('users')
+@UseFilters(MongoExceptionFilter)
 export class UsersController {
   constructor(
     private authService: AuthService,
