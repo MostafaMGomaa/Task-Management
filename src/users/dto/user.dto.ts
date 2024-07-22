@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { UserRoles } from 'src/enums';
+import { UserRoles } from '../../enums';
 
 export class UserDto {
   _id: Types.ObjectId;

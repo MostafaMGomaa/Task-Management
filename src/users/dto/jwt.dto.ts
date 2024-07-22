@@ -1,8 +1,8 @@
-import { Types } from 'mongoose';
-import { UserRoles } from 'src/enums';
+import { Schema, Types } from 'mongoose';
+import { UserRoles } from '../../enums';
 
 export interface JwtDto {
-  id: Types.ObjectId;
+  id: Schema.Types.ObjectId;
 
   email: string;
 

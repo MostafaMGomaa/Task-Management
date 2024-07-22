@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, ObjectId } from 'mongoose';
 import { isEmail } from 'class-validator';
-import { UserRoles } from 'src/enums';
+import { UserRoles } from '../enums';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -54,6 +54,7 @@ export class User {
     select: false,
   })
   active: boolean;
+  id: ObjectId;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

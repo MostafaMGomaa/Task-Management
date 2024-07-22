@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 
@@ -7,7 +11,7 @@ import { CreateUserDto } from '../dto';
 import { ConfigService } from '@nestjs/config';
 import { JwtDto } from '../dto/jwt.dto';
 import { LoginDto } from '../dto/login.dto';
-import { UserRoles } from 'src/enums';
+import { UserRoles } from '../../enums';
 
 @Injectable()
 export class AuthService {
@@ -19,11 +23,16 @@ export class AuthService {
 
   // TODO: Upload images.
   async signup(data: CreateUserDto) {
+    const existsUser = await this.usersService.findOne(data.email);
+
+    if (existsUser) {
+      throw new BadRequestException('Email already exists');
+    }
+
     const hashedPassword = await bcrypt.hash(
       data.password,
       parseInt(this.config.get<string>('SALT_ROUND')),
     );
-
     const newUser = await this.usersService.create({
       name: data.name,
       email: data.email,
@@ -33,13 +42,13 @@ export class AuthService {
     });
 
     const token = await this.genrateToken({
-      id: newUser._id,
+      id: newUser.id,
       email: newUser.email,
       role: newUser.role,
     });
 
     return {
-      id: newUser._id,
+      id: newUser.id,
       name: newUser.name,
       email: newUser.email,
       photo: newUser.photo,
@@ -59,7 +68,7 @@ export class AuthService {
       throw new ForbiddenException('Invalid email or password');
     }
     const token = await this.genrateToken({
-      id: user._id,
+      id: user.id,
       email: user.email,
       role: user.role,
     });

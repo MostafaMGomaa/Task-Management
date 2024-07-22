@@ -20,7 +20,7 @@ import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard, RolesGuard } from 'src/guards';
 import { storage } from 'src/utils';
 import { Roles } from 'src/decorators';
-import { UserRoles } from 'src/enums';
+import { UserRoles } from '../enums';
 import { MongoExceptionFilter } from 'src/filters';
 
 @Controller('users')

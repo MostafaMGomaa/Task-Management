@@ -18,7 +18,7 @@ import { JwtAuthGuard } from 'src/guards';
 import { AuthorCheckInterceptor } from './interceptors';
 import { Roles } from 'src/decorators';
 import { RolesGuard } from 'src/guards';
-import { UserRoles } from 'src/enums';
+import { UserRoles } from '../enums';
 
 @Controller('tasks')
 export class TasksController {

@@ -4,10 +4,9 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  Min,
   MinLength,
 } from 'class-validator';
-import { UserRoles } from 'src/enums';
+import { UserRoles } from '../../enums';
 
 export class CreateUserDto {
   @IsNotEmpty()
