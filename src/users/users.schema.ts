@@ -25,7 +25,7 @@ export class User {
   @Prop({
     default: 'user-default-photo.jpg',
   })
-  photo: string;
+  photo?: string;
 
   @Prop({
     default: 'user',
@@ -41,13 +41,13 @@ export class User {
   password: string;
 
   @Prop()
-  passwordChangedAt: Date;
+  passwordChangedAt?: Date;
 
   @Prop()
-  passwordResetToken: string;
+  passwordResetToken?: string;
 
   @Prop()
-  passwordResetExpires: Date;
+  passwordResetExpires?: Date;
 
   @Prop({
     default: true,
