@@ -1,4 +1,4 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
@@ -7,6 +7,8 @@ import { UsersService } from '../users.service';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../dto';
 import { ObjectId } from 'bson';
+import e from 'express';
+import { LoginDto } from '../dto/login.dto';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -90,5 +92,50 @@ describe('AuthService', () => {
 
     userData.password = 'incorrect password';
     await expect(service.signup(userData)).rejects.toThrow(BadRequestException);
+  });
+
+  it('return a token when logged in succesfully', async () => {
+    const userData = {
+      name: 'mostafa',
+      email: 'gomaamostafa26@gmail.com',
+      password: '123456789',
+      photo: 'default.jpg',
+    } as CreateUserDto;
+    await service.signup(userData);
+
+    const result = await service.login({
+      email: userData.email,
+      password: userData.password,
+    });
+
+    expect(result).toBeDefined();
+    expect(result.token).toBeDefined();
+    expect(result.name).toEqual('mostafa');
+  });
+
+  it('throw an error if user login with non exists email', async () => {
+    const userData = {
+      email: 'gomaamostafa26@gmail.com',
+      password: '123456789',
+    } as LoginDto;
+
+    await expect(service.login(userData)).rejects.toThrow(ForbiddenException);
+  });
+
+  it('throw an error if user login with invaild password', async () => {
+    const userData = {
+      name: 'mostafa',
+      email: 'gomaamostafa26@gmail.com',
+      password: '123456789',
+      photo: 'default.jpg',
+    } as CreateUserDto;
+    await service.signup(userData);
+
+    await expect(
+      service.login({
+        email: userData.email,
+        password: 'incorrect password',
+      }),
+    ).rejects.toThrow(ForbiddenException);
   });
 });
