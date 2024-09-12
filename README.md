@@ -1,6 +1,6 @@
 # Task Mangemnet
 
-Task mangement web app
+Task mangement web app with nestjs
 
 ## Schema:
 
